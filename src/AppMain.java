@@ -18,11 +18,19 @@ public class AppMain {
                 case 1:
                     System.out.println("Введите адрес файла с которого будет считан текст");
                     pathToFileIn = scanner.nextLine();
-                    ArrayList <Character> arrayList = FileManager.readTextFromFile(pathToFileIn);
                     System.out.println("Введите адрес файла в который будет записан текст");
                     pathToFileOut = scanner.nextLine();
-                    FileManager.writeTextToFile(pathToFileOut, arrayList);
+                    try {
+                        do {
+                            System.out.println("Введите ключ");
+                            shift = Integer.parseInt(scanner.nextLine());
+                        } while (shift < 0 || shift > 33);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Вы ввели не цифру! Программа перезапускается!");
+                    }
 
+                    Cesar cesar = new Cesar(shift, pathToFileIn, pathToFileOut);
+                    cesar.coder();
                     break;
                 case 2:
                     System.out.println("Введите адрес файла с которого будет считан текст");
