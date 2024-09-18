@@ -1,3 +1,5 @@
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AppMain {
@@ -15,13 +17,16 @@ public class AppMain {
             switch (variable) {
                 case 1:
                     System.out.println("Введите адрес файла с которого будет считан текст");
-                    pathToFileOut = scanner.nextLine();
+                    pathToFileIn = scanner.nextLine();
+                    ArrayList <Character> arrayList = FileManager.readTextFromFile(pathToFileIn);
                     System.out.println("Введите адрес файла в который будет записан текст");
                     pathToFileOut = scanner.nextLine();
+                    FileManager.writeTextToFile(pathToFileOut, arrayList);
+
                     break;
                 case 2:
                     System.out.println("Введите адрес файла с которого будет считан текст");
-                    pathToFileOut = scanner.nextLine();
+                    pathToFileIn = scanner.nextLine();
                     System.out.println("Введите адрес файла в который будет записан текст");
                     pathToFileOut = scanner.nextLine();
 
@@ -31,7 +36,7 @@ public class AppMain {
                             shift = Integer.parseInt(scanner.nextLine());
                         } while (shift < 0 || shift > 33);
                     } catch (NumberFormatException e) {
-                        System.out.println("Вы ввели не цифру!");
+                        System.out.println("Вы ввели не цифру! Программа перезапускается!");
                     }
                     break;
                 case 3:
@@ -62,7 +67,7 @@ public class AppMain {
         }
         catch (NumberFormatException e)
         {
-            System.out.println("Вы ввели не цифру!");
+            System.out.println("Вы ввели не цифру! Программа перезапускается!");
         }
         return variable;
     }
