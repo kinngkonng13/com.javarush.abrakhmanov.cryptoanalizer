@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Cesar {
@@ -7,8 +8,7 @@ public class Cesar {
     private static ArrayList <Character> text;
     private static ArrayList <Character> cipher = new ArrayList<>();
 
-    public Cesar(int shift, String filePathIn, String filePathOut)
-    {
+    public Cesar(int shift, String filePathIn, String filePathOut) throws IOException {
         this.shift = shift;
         this.filePathIn = filePathIn;
         text = FileManager.readTextFromFile(filePathIn);
@@ -16,12 +16,15 @@ public class Cesar {
     }
 
     public void coder() {
+        cipher.clear();
         for (Character character : text) {
             for (int i = 0; i < Alphabet.ALPHABET.length; i++) {
-
                 {
                     if (character == Alphabet.ALPHABET[i]) {
-                        cipher.add (Alphabet.ALPHABET[(i + shift) % Alphabet.ALPHABET.length]);
+                        if (i + shift >= 0)
+                            cipher.add(Alphabet.ALPHABET[(i + shift) % Alphabet.ALPHABET.length]);
+                        else
+                            cipher.add(Alphabet.ALPHABET[(i + shift + Alphabet.ALPHABET.length) % Alphabet.ALPHABET.length]);
                     }
                 }
             }
@@ -30,6 +33,19 @@ public class Cesar {
     }
     public void decoder()
     {
-
+        cipher.clear();
+        for (Character character : text) {
+            for (int i = 0; i < Alphabet.ALPHABET.length; i++) {
+                {
+                    if (character == Alphabet.ALPHABET[i]) {
+                        if (i - shift >= 0)
+                            cipher.add(Alphabet.ALPHABET[(i - shift) % Alphabet.ALPHABET.length]);
+                        else
+                            cipher.add(Alphabet.ALPHABET[(i - shift + Alphabet.ALPHABET.length) % Alphabet.ALPHABET.length]);
+                    }
+                }
+            }
+        }
+        FileManager.writeTextToFile(filePathOut, cipher);
     }
 }

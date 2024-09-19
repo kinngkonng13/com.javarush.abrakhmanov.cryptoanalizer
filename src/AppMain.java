@@ -1,9 +1,10 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AppMain {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String pathToFileIn = "";
         String pathToFileOut = "";
         int shift = 0;
@@ -15,6 +16,7 @@ public class AppMain {
             variable = AppMain.printMenu(scanner);
 
             switch (variable) {
+                // Шифровка файла
                 case 1:
                     System.out.println("Введите адрес файла с которого будет считан текст");
                     pathToFileIn = scanner.nextLine();
@@ -24,14 +26,22 @@ public class AppMain {
                         do {
                             System.out.println("Введите ключ");
                             shift = Integer.parseInt(scanner.nextLine());
-                        } while (shift < 0 || shift > 33);
+                        } while (shift > 43);
                     } catch (NumberFormatException e) {
                         System.out.println("Вы ввели не цифру! Программа перезапускается!");
                     }
 
-                    Cesar cesar = new Cesar(shift, pathToFileIn, pathToFileOut);
-                    cesar.coder();
+                    try
+                    {
+                        Cesar cesar = new Cesar(shift, pathToFileIn, pathToFileOut);
+                        cesar.coder();
+                    }
+                    catch (IOException e)
+                    {
+                        System.out.println("ОШИБКА");
+                    }
                     break;
+                    //Расшифровка файла
                 case 2:
                     System.out.println("Введите адрес файла с которого будет считан текст");
                     pathToFileIn = scanner.nextLine();
@@ -42,14 +52,24 @@ public class AppMain {
                         do {
                             System.out.println("Введите ключ");
                             shift = Integer.parseInt(scanner.nextLine());
-                        } while (shift < 0 || shift > 33);
+                        } while (shift > 43);
                     } catch (NumberFormatException e) {
                         System.out.println("Вы ввели не цифру! Программа перезапускается!");
                     }
+                    try{
+                        Cesar decoderCesar = new Cesar(shift, pathToFileIn, pathToFileOut);
+                        decoderCesar.decoder();
+                    }catch (IOException e)
+                    {
+                        System.out.println("ОШИБКА!!!");
+                    }
+
                     break;
+                    //Расшифровка метод BruteForce
                 case 3:
 
                     break;
+                    // Выход из программы
                 case 4:
                     System.out.println("До свидания!");
                     System.exit(0);
