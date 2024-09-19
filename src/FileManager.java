@@ -42,14 +42,28 @@ public class FileManager {
     }
 
     // Запись в файл
-    public static void writeTextToFile(String filePath, ArrayList<Character> list){
+    public static void writeTextToFile(String filePath, ArrayList<Character> list) throws IOException {
         Path path = Paths.get(filePath);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
-            for (Character c : list) {
-                writer.write(c);
+        if (exists(path))
+        {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
+                for (Character c : list) {
+                    writer.write(c);
+                }
+            } catch (IOException e) {
+                System.out.println("ОШИБКА!");
             }
-        } catch (IOException e) {
-            System.out.println("ОШИБКА!");
+        }
+        else
+        {
+            Path pathNew = createFile(path);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathNew.toFile()))) {
+                for (Character c : list) {
+                    writer.write(c);
+                }
+            } catch (IOException e) {
+                System.out.println("ОШИБКА!");
+            }
         }
     }
 }

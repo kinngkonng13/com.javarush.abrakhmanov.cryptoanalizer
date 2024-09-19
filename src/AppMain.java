@@ -31,15 +31,10 @@ public class AppMain {
                         System.out.println("Вы ввели не цифру! Программа перезапускается!");
                     }
 
-                    try
-                    {
-                        Cesar cesar = new Cesar(shift, pathToFileIn, pathToFileOut);
-                        cesar.coder();
-                    }
-                    catch (IOException e)
-                    {
-                        System.out.println("ОШИБКА");
-                    }
+                    Cesar.setFilePathIn(pathToFileIn);
+                    Cesar.setFilePathOut(pathToFileOut);
+                    Cesar.setShift(shift);
+                    Cesar.coder();
                     break;
                     //Расшифровка файла
                 case 2:
@@ -56,18 +51,15 @@ public class AppMain {
                     } catch (NumberFormatException e) {
                         System.out.println("Вы ввели не цифру! Программа перезапускается!");
                     }
-                    try{
-                        Cesar decoderCesar = new Cesar(shift, pathToFileIn, pathToFileOut);
-                        decoderCesar.decoder();
-                    }catch (IOException e)
-                    {
-                        System.out.println("ОШИБКА!!!");
-                    }
+                    Cesar.setFilePathIn(pathToFileIn);
+                    Cesar.setFilePathOut(pathToFileOut);
+                    Cesar.setShift(shift);
+                    Cesar.decoder();
 
                     break;
                     //Расшифровка метод BruteForce
                 case 3:
-
+                    BruteForce.decoding();
                     break;
                     // Выход из программы
                 case 4:
