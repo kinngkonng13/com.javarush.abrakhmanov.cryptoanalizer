@@ -76,7 +76,7 @@ public class AppMain {
         System.out.println("Выберите действие:");
         System.out.println("1. Зашифровать текст");
         System.out.println("2. Расшифровать текст с помощью ключа");
-        System.out.println("3. ");
+        System.out.println("3. Расшифровка методом BruteForce");
         System.out.println("4. Выход");
 
         int variable = 0;
